@@ -4,7 +4,7 @@ import {
   Routes,
   useNavigate,
 } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import {
   Sun as SunIcon,
   Calendar as DateIcon,
@@ -17,17 +17,39 @@ import {
 import Date from "./Routes/Date";
 import Weather from "./Routes/Weather";
 import Clock from "./Routes/clock";
-
+import Settings from "./Routes/Settings";
+import { useSettings } from "./useSettings"
 function App() {
+  const { style } = useSettings()
   const navigate = useNavigate()
   const [isOpen, setIsOpen] = useState(true);
   const [isVisible, setIsVisible] = useState(true);
-  const [settings, setSettings] = useState({
-    icons: {
-      size: 40,
-      color: "#000000",
-    },
-  });
+  // const [settings, setSettings] = useState({
+  //   style: {
+  //     icons: {
+  //       size: 40,
+  //       color: "#000000",
+  //     },
+  //     background: "#F3E5AB",
+  //     text: {
+  //       font: "",
+  //       size: {
+  //         title: 48,
+  //         main: 16
+  //       }
+  //     },
+  //   },
+  //   location:"",
+  //   clock: {
+  //     format: "24-hour"
+  //   },
+  //   weather: {
+  //     format: "celsius"
+  //   },
+  //   date: {
+  //     format: "DD/MM/YYYY"
+  //   }
+  // });
 
   useEffect(() => {
     let timeout;
@@ -55,7 +77,10 @@ function App() {
   }, []);
 
   return (
-    <>
+    <div
+      style={{ fontFamily: style.text.font, backgroundColor: style.background }}
+      className="min-h-screen"
+    >
       <div
         className={`fixed top-0 right-0 h-full flex flex-col justify-between py-6 pr-3 transition-opacity duration-500 ${
           isVisible ? "opacity-100" : "opacity-10 pointer-events-none"
@@ -76,9 +101,9 @@ function App() {
           >
             <ClockIcon
               style={{
-                width: settings.icons.size,
-                height: settings.icons.size,
-                color: settings.icons.color,
+                width: style.icons.size,
+                height: style.icons.size,
+                color: style.icons.color,
               }}
             />
           </button>
@@ -89,9 +114,9 @@ function App() {
           >
             <DateIcon
               style={{
-                width: settings.icons.size,
-                height: settings.icons.size,
-                color: settings.icons.color,
+                width: style.icons.size,
+                height: style.icons.size,
+                color: style.icons.color,
               }}
             />
           </button>
@@ -102,9 +127,9 @@ function App() {
           >
             <SunIcon
               style={{
-                width: settings.icons.size,
-                height: settings.icons.size,
-                color: settings.icons.color,
+                width: style.icons.size,
+                height: style.icons.size,
+                color: style.icons.color,
               }}
             />
           </button>
@@ -126,9 +151,9 @@ function App() {
             >
               <SettingsIcon
                 style={{
-                  width: settings.icons.size,
-                  height: settings.icons.size,
-                  color: settings.icons.color,
+                  width: style.icons.size,
+                  height: style.icons.size,
+                  color: style.icons.color,
                 }}
               />
             </button>
@@ -143,9 +168,9 @@ function App() {
             >
               <MaxIcon
                 style={{
-                  width: settings.icons.size,
-                  height: settings.icons.size,
-                  color: settings.icons.color,
+                  width: style.icons.size,
+                  height: style.icons.size,
+                  color: style.icons.color,
                 }}
               />
             </button>
@@ -159,9 +184,9 @@ function App() {
             <MoreIcon
               className={`transition-transform ${isOpen ? "rotate-180" : ""}`}
               style={{
-                width: settings.icons.size,
-                height: settings.icons.size,
-                color: settings.icons.color,
+                width: style.icons.size,
+                height: style.icons.size,
+                color: style.icons.color,
               }}
             />
           </button>
@@ -172,8 +197,9 @@ function App() {
         <Route path="/clock" element={<Clock />} />
         <Route path="/date" element={<Date />} />
         <Route path="/weather" element={<Weather />} />
+        <Route path="/settings" element={<Settings />} />
       </Routes>
-    </>
+    </div>
   );
 }
 
